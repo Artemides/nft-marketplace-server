@@ -38,14 +38,15 @@ describe("nft data storage", () => {
   });
 
   it("should remove an nft", () => {
-    market.addNft(mockNft);
-    market.removeNft(mockNft);
+    const created = market.addNft(mockNft);
+
+    market.removeNft(created);
 
     const nfts = market.countNfts();
     expect(nfts).toBe(0);
   });
   it("does not report when removing a non exisiting item", () => {
-    market.removeNft(mockNft);
+    market.removeNft("address");
 
     const nfts = market.countNfts();
     expect(nfts).toBe(0);
