@@ -1,9 +1,11 @@
 import { ethers } from "ethers";
 import { NFTListenOnEvent } from "../../typechain-types/contracts/NFTMarket";
 import { arrToKeccak } from "../utils/hash";
+import { MarketNFT } from "../types/market";
+import { parseNft } from "../utils/nftItem";
 
 export class NFTMarket {
-  private nfts: { [key: string]: NFTListenOnEvent.InputTuple } = {};
+  private nfts: { [key: string]: MarketNFT } = {};
 
   getNfts() {
     return this.nfts;
@@ -16,7 +18,8 @@ export class NFTMarket {
 
   addNft(nft: NFTListenOnEvent.InputTuple): string {
     const nftHash = arrToKeccak(nft);
-    this.nfts[nftHash] = nft;
+
+    this.nfts[nftHash] = parseNft(nft);
 
     return nftHash;
   }
@@ -25,7 +28,6 @@ export class NFTMarket {
     const nftHash = arrToKeccak(nft);
     delete this.nfts[nftHash];
 
-    console.log({ ss: this.nfts });
     return nftHash;
   }
 }
