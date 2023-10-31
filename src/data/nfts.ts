@@ -45,6 +45,8 @@ export class NFTMarket {
 
     currentNft.price = newPrice.toString();
     this.nfts[nftHash] = currentNft;
+    console.log(`NFT: ${nftHash} updated on Marketplace`);
+
     return nftHash;
   }
 }
